@@ -1,5 +1,8 @@
 package backend;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +15,14 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +34,11 @@ public class Controller {
 	List<String> StringListaUsera = new ArrayList<String>();
 	Jdbc db = new Jdbc();
 
+
+	@FXML
+	public Label timeLabel = new Label();
+	@FXML
+	public Label userInfoLabel = new Label();
 	@FXML
 	public TextField usernameField;
 	@FXML
@@ -64,7 +77,7 @@ public class Controller {
 
 	@FXML
 	private void handleEvidencijaButtonAction(ActionEvent event) throws IOException {
-		FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/frontend/Evidentija.fxml"));
+		FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/frontend/Evidencija.fxml"));
 		Parent registerPane = pageLoader.load();
 		Scene secondScene = new Scene(registerPane, 800, 500);
 
@@ -79,6 +92,34 @@ public class Controller {
 	@FXML
 	private void handleMenuButtonAction(ActionEvent event) throws IOException {
 		FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/frontend/Menu.fxml"));
+		Parent registerPane = pageLoader.load();
+		Scene secondScene = new Scene(registerPane, 800, 500);
+
+		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+		primaryStage.setResizable(false);
+		primaryStage.setTitle("Menu");
+		primaryStage.setScene(secondScene);
+		primaryStage.show();
+	}
+
+	@FXML
+	private void handleProfileButtonAction(ActionEvent event) throws IOException {
+		FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/frontend/Profil.fxml"));
+		Parent registerPane = pageLoader.load();
+		Scene secondScene = new Scene(registerPane, 800, 500);
+
+		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+		primaryStage.setResizable(false);
+		primaryStage.setTitle("Menu");
+		primaryStage.setScene(secondScene);
+		primaryStage.show();
+	}
+
+	@FXML
+	private void handleKontaktiButtonAction(ActionEvent event) throws IOException {
+		FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/frontend/Kontakti.fxml"));
 		Parent registerPane = pageLoader.load();
 		Scene secondScene = new Scene(registerPane, 800, 500);
 
@@ -119,6 +160,7 @@ public class Controller {
 		login.password = hashingPassword.toHexString(hashingPassword.getSHA(passwordField.getText()));
 		db.sql = "SELECT COUNT(*) FROM users WHERE username=? AND password=?";
 		int count = db.getCount(login.username, login.password);
+
 		if (count == 1) {
 			FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/frontend/Menu.fxml"));
 			Parent registerPane = pageLoader.load();
@@ -133,6 +175,21 @@ public class Controller {
 		} else {
 			statusLabel.setVisible(true);
 		}
+	}
+
+	@FXML
+	public void initialize() {
+		localTime();
+	}
+
+	@FXML
+	public void localTime(){
+		Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			timeLabel.setText(LocalDateTime.now().format(formatter));
+		}), new KeyFrame(Duration.seconds(1)));
+		clock.setCycleCount(Animation.INDEFINITE);
+		clock.play();
 	}
 
 	@FXML

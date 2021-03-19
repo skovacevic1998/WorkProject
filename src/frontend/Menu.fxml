@@ -4,13 +4,14 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #6052ad;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="backend.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #6052ad;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="backend.Controller">
    <left>
       <AnchorPane prefHeight="252.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="14.0" layoutY="119.0" mnemonicParsing="false" prefWidth="150.0" text="Profil" />
-            <Button layoutX="14.0" layoutY="155.0" mnemonicParsing="false" prefWidth="150.0" text="Zaposlenici" />
-            <Button layoutX="14.0" layoutY="191.0" mnemonicParsing="false" prefWidth="150.0" text="Kontakti" />
+            <Button fx:id="userProfileButton" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleProfileButtonAction" prefWidth="150.0" text="Profil" />
+            <Button fx:id="zaposleniciButton" layoutX="14.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleZaposleniciButtonAction" prefWidth="150.0" text="Zaposlenici" />
+            <Button fx:id="evidencijaButton" layoutX="14.0" layoutY="191.0" mnemonicParsing="false" onAction="#handleEvidencijaButtonAction" prefWidth="150.0" text="Evidencija" />
+            <Button fx:id="kontaktiButton1" layoutX="14.0" layoutY="227.0" mnemonicParsing="false" onAction="#handleProfileButtonAction" prefWidth="150.0" text="Kontakti" />
          </children>
       </AnchorPane>
    </left>
@@ -27,22 +28,15 @@
                   <Image url="@../../Images/mainCover.png" />
                </image>
             </ImageView>
+            <Label fx:id="userInfoLabel" alignment="BOTTOM_RIGHT" layoutX="649.0" prefHeight="17.0" prefWidth="140.0" text="Prijavljeni korisnik" textFill="WHITE" />
          </children>
       </AnchorPane>
    </top>
-   <right>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="logoutButton" onAction="#handleLoginButtonAction" layoutX="93.0" layoutY="272.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="93.0" text="Odjava" />
-
-         </children>
-      </AnchorPane>
-   </right>
    <bottom>
       <AnchorPane prefHeight="38.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="BOTTOM_RIGHT" layoutX="646.0" layoutY="10.0" prefHeight="17.0" prefWidth="140.0" text="Prijavljeni korisnik" textFill="WHITE" />
-            <Label alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="10.0" prefHeight="17.0" prefWidth="137.0" text="Datum i vrijeme" textFill="WHITE" />
+            <Label fx:id="timeLabel" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="16.0" prefHeight="17.0" prefWidth="137.0" text="Datum i vrijeme" textFill="WHITE" />
+            <Button fx:id="logoutButton" layoutX="730.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="25.0" prefWidth="56.0" text="Odjava" />
          </children>
       </AnchorPane>
    </bottom>
