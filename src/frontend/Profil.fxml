@@ -3,23 +3,53 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #6052ad;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="backend.Controller">
-   <left>
-      <AnchorPane prefHeight="500.0" prefWidth="141.0" BorderPane.alignment="CENTER">
+   <right>
+      <AnchorPane prefHeight="500.0" prefWidth="852.0" BorderPane.alignment="CENTER">
          <children>
+            <Button fx:id="backButton" layoutX="730.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleMenuButtonAction" prefWidth="56.0" text="Back" />
+            <Label layoutX="78.0" layoutY="164.0" prefHeight="17.0" prefWidth="91.0" text="Username:" textFill="WHITE" />
+            <Label layoutX="78.0" layoutY="192.0" prefHeight="17.0" prefWidth="91.0" text="Ime:" textFill="WHITE" />
+            <Label layoutX="78.0" layoutY="218.0" prefHeight="17.0" prefWidth="91.0" text="Prezime:" textFill="WHITE" />
+            <Label layoutX="78.0" layoutY="294.0" prefHeight="17.0" prefWidth="91.0" text="Grad:" textFill="WHITE" />
+            <Label layoutX="78.0" layoutY="268.0" prefHeight="17.0" prefWidth="91.0" text="Država:" textFill="WHITE" />
+            <Label layoutX="78.0" layoutY="320.0" prefHeight="17.0" prefWidth="91.0" text="Broj mobitela:" textFill="WHITE" />
+            <Label layoutX="78.0" layoutY="243.0" prefHeight="17.0" prefWidth="91.0" text="E-mail:" textFill="WHITE" />
+            <Label fx:id="username_lbl" layoutX="199.0" layoutY="165.0" prefHeight="17.0" prefWidth="150.0" text="username" textFill="WHITE" />
+            <Label fx:id="email_lbl" layoutX="199.0" layoutY="244.0" prefHeight="17.0" prefWidth="150.0" text="email" textFill="WHITE" />
+            <Label fx:id="drzava_lbl" layoutX="199.0" layoutY="269.0" prefHeight="17.0" prefWidth="150.0" text="drzava" textFill="WHITE" />
+            <Label fx:id="grad_lbl" layoutX="199.0" layoutY="295.0" prefHeight="17.0" prefWidth="150.0" text="grad" textFill="WHITE" />
+            <Label fx:id="brojMobitela_lbl" layoutX="199.0" layoutY="321.0" prefHeight="17.0" prefWidth="150.0" text="brojMobitela" textFill="WHITE" />
+            <Label fx:id="ime_lbl" layoutX="199.0" layoutY="193.0" prefHeight="17.0" prefWidth="150.0" text="ime" textFill="WHITE" />
+            <Label fx:id="prezime_lbl" layoutX="199.0" layoutY="219.0" prefHeight="17.0" prefWidth="150.0" text="prezime" textFill="WHITE" />
+            <Label layoutX="402.0" layoutY="167.0" prefHeight="17.0" prefWidth="91.0" text="Pozicija:" textFill="WHITE" />
+            <Label layoutX="402.0" layoutY="195.0" prefHeight="17.0" prefWidth="124.0" text="Plaća prošlog mjeseca:" textFill="WHITE" />
+            <Label layoutX="402.0" layoutY="297.0" prefHeight="17.0" prefWidth="157.0" text="Ukupno stečenih radnih sati:" textFill="WHITE" />
+            <Label layoutX="402.0" layoutY="246.0" prefHeight="17.0" prefWidth="91.0" text="Bodovi:" textFill="WHITE" />
+            <Label layoutX="402.0" layoutY="323.0" prefHeight="17.0" prefWidth="186.0" text="Preostalo dana godišnjeg odmora:" textFill="WHITE" />
+            <Label layoutX="402.0" layoutY="221.0" prefHeight="17.0" prefWidth="91.0" text="Putni troškovi:" textFill="WHITE" />
+            <Label layoutX="402.0" layoutY="271.0" prefHeight="17.0" prefWidth="139.0" text="Odrađeno sati(mjesečno):" textFill="WHITE" />
+            <Label fx:id="pozicija_lbl" layoutX="618.0" layoutY="166.0" prefHeight="17.0" prefWidth="150.0" text="pozicija" textFill="WHITE" />
+            <Label fx:id="placaProslogMjeseca_lbl" layoutX="618.0" layoutY="194.0" prefHeight="17.0" prefWidth="150.0" text="placaProslogMjeseca" textFill="WHITE" />
+            <Label fx:id="putniTroskovi_lbl" layoutX="618.0" layoutY="220.0" prefHeight="17.0" prefWidth="150.0" text="putniTroskovi" textFill="WHITE" />
+            <Label fx:id="ukupniRadniSati_lbl" layoutX="618.0" layoutY="296.0" prefHeight="17.0" prefWidth="150.0" text="ukupniRadniSati" textFill="WHITE" />
+            <Label fx:id="bodovi_lbl" layoutX="618.0" layoutY="245.0" prefHeight="17.0" prefWidth="150.0" text="bodovi" textFill="WHITE" />
+            <Label fx:id="radniSatiMjesecno_lbl" layoutX="618.0" layoutY="270.0" prefHeight="17.0" prefWidth="150.0" text="radniSatiMjesecno" textFill="WHITE" />
+            <Label fx:id="daniGodisnjegOdmora_lbl" layoutX="618.0" layoutY="321.0" prefHeight="17.0" prefWidth="150.0" text="daniGodisnjegOdmora" textFill="WHITE" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="247.0" layoutY="41.0" prefHeight="35.0" prefWidth="309.0" text="Profile" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
             <ImageView fitHeight="75.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../Images/vubLogo.png" />
                </image>
             </ImageView>
-            <Button layoutX="24.0" layoutY="286.0" mnemonicParsing="false" text="Update profile" />
-         </children></AnchorPane>
-   </left>
-   <right>
-      <AnchorPane prefHeight="500.0" prefWidth="710.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="backButton" layoutX="589.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleMenuButtonAction" prefWidth="56.0" text="Back" />
+            <Button layoutX="109.0" layoutY="370.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Promjena podataka" />
+            <Label fx:id="timeLabel" layoutX="10.0" layoutY="478.0" prefHeight="17.0" prefWidth="150.0" text="Datum i vrijeme" textFill="WHITE" />
          </children>
       </AnchorPane>
    </right>
