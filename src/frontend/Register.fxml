@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -39,18 +40,31 @@
                   <Image url="@../../Images/register.png" />
                </image>
             </ImageView>
-            <Label layoutX="37.0" layoutY="221.0" text="Username:" />
-            <Label layoutX="37.0" layoutY="250.0" text="Password:" />
-            <Label layoutX="37.0" layoutY="280.0" text="Confirm password:" />
-            <Label layoutX="39.0" layoutY="310.0" text="Email:" />
-            <PasswordField fx:id="enterUsername" layoutX="153.0" layoutY="217.0" prefWidth="220.0" promptText="Username..." />
-            <PasswordField fx:id="reEnterPassword" layoutX="153.0" layoutY="276.0" prefWidth="220.0" promptText="Password..." />
-            <TextField fx:id="enterPassword" layoutX="153.0" layoutY="246.0" prefHeight="25.0" prefWidth="220.0" promptText="Password..." />
-            <TextField fx:id="enterEmail" layoutX="153.0" layoutY="306.0" prefWidth="220.0" promptText="Email..." />
-            <Button fx:id="registerButton" layoutX="188.0" layoutY="370.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefWidth="150.0" style="-fx-background-color: #6052ad;" text="Register" textFill="WHITE" />
+            <Label layoutX="6.0" layoutY="221.0" text="Username:" />
+            <Label layoutX="6.0" layoutY="250.0" text="Password:" />
+            <Label layoutX="6.0" layoutY="280.0" text="Confirm password:" />
+            <Label layoutX="6.0" layoutY="310.0" text="Email:" />
+            <PasswordField fx:id="enterPassword" focusTraversable="false" layoutX="108.0" layoutY="246.0" prefWidth="220.0" promptText="Password..." />
+            <PasswordField fx:id="reEnterPassword" focusTraversable="false" layoutX="108.0" layoutY="276.0" prefWidth="220.0" promptText="Password..." />
+            <TextField fx:id="enterUsername" focusTraversable="false" layoutX="108.0" layoutY="217.0" prefHeight="25.0" prefWidth="220.0" promptText="Username..." />
+            <TextField fx:id="enterEmail" focusTraversable="false" layoutX="108.0" layoutY="306.0" prefWidth="220.0" promptText="Email..." />
+            <Button layoutX="143.0" layoutY="387.0" mnemonicParsing="false" onAction="#registerValidation" prefWidth="150.0" style="-fx-background-color: #6052ad;" text="Register" textFill="WHITE" />
             <Button fx:id="backButton" layoutX="389.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #d9c8f5;" text="Back" />
-            <Label fx:id="registerStatusLabel" alignment="CENTER" layoutX="113.0" layoutY="345.0" prefHeight="17.0" prefWidth="321.0" text="Netocna podudarnost podataka. Pokušajte ponovno!" textFill="RED" visible="false" />
-            <Label fx:id="registerStatusLabel1" alignment="CENTER" layoutX="113.0" layoutY="345.0" prefHeight="17.0" prefWidth="321.0" text="Korisnik uspješno registriran!" textFill="#25bc25" visible="false" />
+            <Label fx:id="usernameErrorLabel" alignment="CENTER" layoutX="366.0" layoutY="221.0" prefHeight="17.0" prefWidth="94.0" text="Username exists!" textFill="RED" visible="false" />
+            <Label fx:id="validRegisterLabel" alignment="CENTER" layoutX="58.0" layoutY="345.0" prefHeight="17.0" prefWidth="320.0" text="Successfull registred!" textFill="#25bc25" visible="false" />
+            <Label fx:id="passwordErrorLabel" alignment="CENTER" layoutX="345.0" layoutY="268.0" prefHeight="17.0" prefWidth="128.0" text="Passwords don't match!" textFill="RED" visible="false" />
+            <Label fx:id="emailErrorLabel" alignment="CENTER" layoutX="378.0" layoutY="310.0" prefHeight="17.0" prefWidth="71.0" text="Email exists!" textFill="RED" visible="false">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></Label>
+            <Label alignment="CENTER" layoutX="328.0" layoutY="221.0" prefHeight="17.0" prefWidth="12.0" text="*" textFill="RED" />
+            <Label alignment="CENTER" layoutX="328.0" layoutY="250.0" prefHeight="17.0" prefWidth="12.0" text="*" textFill="RED" />
+            <Label alignment="CENTER" layoutX="328.0" layoutY="280.0" prefHeight="17.0" prefWidth="12.0" text="*" textFill="RED" />
+            <Label alignment="CENTER" layoutX="328.0" layoutY="310.0" prefHeight="17.0" prefWidth="12.0" text="*" textFill="RED" />
+            <Label fx:id="emptyEmailLabel" alignment="CENTER" layoutX="378.0" layoutY="310.0" prefHeight="17.0" prefWidth="71.0" text="Empty field!" textFill="RED" visible="false" />
+            <Label fx:id="emptyPasswordLabel" alignment="CENTER" layoutX="345.0" layoutY="268.0" prefHeight="17.0" prefWidth="71.0" text="Empty field!" textFill="RED" visible="false" />
+            <Label fx:id="emptyUsernameLabel" alignment="CENTER" layoutX="366.0" layoutY="221.0" prefHeight="17.0" prefWidth="71.0" text="Empty field!" textFill="RED" visible="false" />
+            <Label fx:id="requiredEmailCharacterLabel" alignment="CENTER" layoutX="351.0" layoutY="310.0" prefHeight="17.0" prefWidth="111.0" text="Wrong email format!" textFill="RED" visible="false" />
          </children>
       </AnchorPane>
    </center>

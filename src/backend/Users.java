@@ -1,28 +1,27 @@
 package backend;
 
-import com.sun.javafx.charts.Legend;
-import com.sun.javafx.menu.MenuItemBase;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
 public class Users extends Controller {
-	String username;
-	String password;
-	String email;
-	String ime;
-	String prezime;
-	String drzava;
-	String grad;
-	String brojMobitela;
-	int pozicija;
-	float placaProslogMjeseca;
-	float putniTroskovi;
-	float bodovi;
-	float satiMjesecno;
-	float ukupnoStecenihRadnihSati;
-	int preostaliDaniGodisnjegOdmora;
+	static String username = "username";
+	static String password = "password";
+	static String email = "email";
+	static String ime = "ime";
+	static String prezime = "prezime";
+	static String drzava = "drzava";
+	static String grad = "grad";
+	static String brojMobitela = "brojMobitela";
+	static String pozicija = "pozicija";
+	static String placaProslogMjeseca = "placaProslogMjeseca";
+	static String putniTroskovi = "putniTroskovi";
+	static String bodovi = "bodovi";
+	static String satiMjesecno = "satiMjesecno";
+	static String ukupnoStecenihRadnihSati = "ukupnoStecenihRadnihSati";
+	static String preostaliDaniGodisnjegOdmora = "preostaliDaniGodisnjegOdmora";
 
-	public Users(String username, String password, String email, String ime, String prezime, String drzava, String grad, String brojMobitela, int pozicija, float placaProslogMjeseca, float putniTroskovi, float bodovi, float satiMjesecno, float ukupnoStecenihRadnihSati, int preostaliDaniGodisnjegOdmora) {
+	public Users(String username, String password, String email, String ime,
+				 String prezime, String drzava, String grad, String brojMobitela,
+				 String pozicija, String placaProslogMjeseca, String putniTroskovi,
+				 String bodovi, String satiMjesecno, String ukupnoStecenihRadnihSati,
+				 String preostaliDaniGodisnjegOdmora) {
 		this.username = username;
 		this.password = password;
 		this.email = email;

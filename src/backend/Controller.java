@@ -4,6 +4,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,23 +14,23 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import javafx.event.ActionEvent;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Controller {
 	Login login = new Login();
 	HashingPassword hashingPassword = new HashingPassword();
+	Register reg = new Register();
 	List<Users> ListOfUser = new ArrayList<>();
 	List<String> StringListaUsera = new ArrayList<String>();
 	Jdbc db = new Jdbc();
@@ -44,7 +45,32 @@ public class Controller {
 	@FXML
 	public PasswordField passwordField;
 	@FXML
-	public Label statusLabel;
+	public Label errorLoginLabel;
+	@FXML
+	public TextField enterUsername;
+	@FXML
+	public TextField enterPassword;
+	@FXML
+	public TextField reEnterPassword;
+	@FXML
+	public TextField enterEmail;
+	@FXML
+	public Label usernameErrorLabel;
+	@FXML
+	public Label passwordErrorLabel;
+	@FXML
+	public Label emailErrorLabel;
+	@FXML
+	public Label validRegisterLabel;
+	@FXML
+	public Label emptyUsernameLabel;
+	@FXML
+	public Label emptyPasswordLabel;
+	@FXML
+	public Label emptyEmailLabel;
+	@FXML
+	public Label requiredEmailCharacterLabel;
+
 
 	@FXML
 	private void handleRegisterButtonAction(ActionEvent event) throws IOException {
@@ -146,9 +172,132 @@ public class Controller {
 	}
 
 	@FXML
-	private void registerValidation(ActionEvent event) throws IOException {
+	private void registerValidation(ActionEvent event) throws IOException, NoSuchAlgorithmException {
 		event.consume();
 		Jdbc db = new Jdbc();
+
+		reg.enterUsername = enterUsername.getText();
+		reg.enterPassword = hashingPassword.toHexString(hashingPassword.getSHA(enterPassword.getText()));
+		reg.reEnterPassword = hashingPassword.toHexString(hashingPassword.getSHA(reEnterPassword.getText()));
+		reg.enterEmail = enterEmail.getText();
+
+		Users.username = reg.enterUsername;
+		Users.password = reg.enterPassword;
+		Users.email = reg.enterEmail;
+
+		int usernameExistence = db.checkUsernameExistence(Users.username);
+		int emailExistence = db.checkEmailExistence(Users.email);
+		String regex = "^(.+)@(.+)$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(enterEmail.getText());
+
+
+		if(enterUsername.getText().isEmpty()){
+			emptyUsernameLabel.setVisible(true);
+			TimerTask task = new TimerTask() {
+				public void run() {
+					emptyUsernameLabel.setVisible(false);
+				}
+			};
+			Timer timer = new Timer("Timer");
+
+			long delay = 3000L;
+			timer.schedule(task, delay);
+
+		}else if(usernameExistence >= 1){
+			usernameErrorLabel.setVisible(true);
+			TimerTask task = new TimerTask() {
+				public void run() {
+					usernameErrorLabel.setVisible(false);
+				}
+			};
+			Timer timer = new Timer("Timer");
+
+			long delay = 3000L;
+			timer.schedule(task, delay);
+
+		}else if(enterPassword.getText().isEmpty() && reEnterPassword.getText().isEmpty()) {
+			emptyPasswordLabel.setVisible(true);
+			TimerTask task = new TimerTask() {
+				public void run() {
+					emptyPasswordLabel.setVisible(false);
+				}
+			};
+			Timer timer = new Timer("Timer");
+
+			long delay = 3000L;
+			timer.schedule(task, delay);
+
+		}else if(!(enterPassword.getText().equals(reEnterPassword.getText()))){
+			passwordErrorLabel.setVisible(true);
+			TimerTask task = new TimerTask() {
+				public void run() {
+					passwordErrorLabel.setVisible(false);
+				}
+			};
+			Timer timer = new Timer("Timer");
+
+			long delay = 3000L;
+			timer.schedule(task, delay);
+
+		}else if(enterEmail.getText().isEmpty()) {
+			emptyEmailLabel.setVisible(true);
+			TimerTask task = new TimerTask() {
+				public void run() {
+					emptyEmailLabel.setVisible(false);
+				}
+			};
+			Timer timer = new Timer("Timer");
+
+			long delay = 3000L;
+			timer.schedule(task, delay);
+
+		}else if(matcher.matches() == false){
+			requiredEmailCharacterLabel.setVisible(true);
+			TimerTask task = new TimerTask() {
+				public void run() {
+					requiredEmailCharacterLabel.setVisible(false);
+				}
+			};
+			Timer timer = new Timer("Timer");
+
+			long delay = 3000L;
+			timer.schedule(task, delay);
+
+		}else if(emailExistence >= 1){
+			emailErrorLabel.setVisible(true);
+			TimerTask task = new TimerTask() {
+				public void run() {
+					emailErrorLabel.setVisible(false);
+				}
+			};
+			Timer timer = new Timer("Timer");
+
+			long delay = 3000L;
+			timer.schedule(task, delay);
+		}else if(usernameExistence == 0 && emailExistence == 0 && enterPassword.getText().equals(reEnterPassword.getText())) {
+				int successRegister = db.addUserRegister(Users.username, Users.password, Users.email, Users.ime, Users.prezime, Users.drzava,
+						Users.grad, Users.brojMobitela, Users.pozicija, Users.placaProslogMjeseca, Users.putniTroskovi, Users.bodovi,
+						Users.satiMjesecno, Users.ukupnoStecenihRadnihSati,Users.preostaliDaniGodisnjegOdmora);
+
+				if(successRegister >= 1){
+					validRegisterLabel.setVisible(true);
+					TimerTask task = new TimerTask() {
+						public void run() {
+							validRegisterLabel.setVisible(false);
+						}
+					};
+					Timer timer = new Timer("Timer");
+
+					long delay = 3000L;
+					timer.schedule(task, delay);
+
+					enterEmail.clear();
+					enterPassword.clear();
+					reEnterPassword.clear();
+					enterUsername.clear();
+			}
+		}
 	}
 
 	@FXML
@@ -158,8 +307,7 @@ public class Controller {
 
 		login.username = usernameField.getText();
 		login.password = hashingPassword.toHexString(hashingPassword.getSHA(passwordField.getText()));
-		db.sql = "SELECT COUNT(*) FROM users WHERE username=? AND password=?";
-		int count = db.getCount(login.username, login.password);
+		int count = db.dbLogin(login.username, login.password);
 
 		if (count == 1) {
 			FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/frontend/Menu.fxml"));
@@ -173,7 +321,19 @@ public class Controller {
 			primaryStage.setScene(secondScene);
 			primaryStage.show();
 		} else {
-			statusLabel.setVisible(true);
+			errorLoginLabel.setVisible(true);
+			TimerTask task = new TimerTask() {
+				public void run() {
+					errorLoginLabel.setVisible(false);
+				}
+			};
+			Timer timer = new Timer("Timer");
+
+			long delay = 3000L;
+			timer.schedule(task, delay);
+
+			usernameField.clear();
+			passwordField.clear();
 		}
 	}
 
