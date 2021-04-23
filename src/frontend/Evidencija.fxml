@@ -21,7 +21,7 @@
 							<TableColumn prefWidth="192.0" text="Opis" />
 						</columns>
 					</TableView>
-					<Label fx:id="userInfoLabel" alignment="TOP_RIGHT" layoutX="623.0" prefHeight="17.0" prefWidth="169.0" text="Prijavljeni korisnik" textFill="WHITE" />
+					<Label fx:id="userInfoLabel" alignment="BOTTOM_LEFT" layoutX="660.0" prefHeight="17.0" prefWidth="140.0" text="Prijavljeni korisnik" textFill="WHITE" />
 					<DatePicker layoutX="14.0" layoutY="263.0" prefHeight="25.0" prefWidth="150.0" promptText="Datum..." />
 					<TextField layoutX="15.0" layoutY="298.0" promptText="Pocetak rada..." />
 					<TextField layoutX="15.0" layoutY="332.0" promptText="Zavrsetak rada..." />
@@ -33,6 +33,7 @@
 							<Image url="@../../Images/vubLogo.png" />
 						</image>
 					</ImageView>
+            <Label layoutX="620.0" text="USER:" textFill="WHITE" />
 				</children>
 			</AnchorPane>
 		</center>

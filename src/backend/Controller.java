@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -20,8 +21,6 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
@@ -31,10 +30,9 @@ public class Controller {
 	Login login = new Login();
 	HashingPassword hashingPassword = new HashingPassword();
 	Register reg = new Register();
-	List<Users> ListOfUser = new ArrayList<>();
-	List<String> StringListaUsera = new ArrayList<String>();
+	public static String windowName = "WorkProject";
+	UserSession session = new UserSession();
 	Jdbc db = new Jdbc();
-
 
 	@FXML
 	public Label timeLabel = new Label();
@@ -70,7 +68,8 @@ public class Controller {
 	public Label emptyEmailLabel;
 	@FXML
 	public Label requiredEmailCharacterLabel;
-
+	@FXML
+	public Button logoutButton;
 
 	@FXML
 	private void handleRegisterButtonAction(ActionEvent event) throws IOException {
@@ -82,7 +81,7 @@ public class Controller {
 		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("Register");
+		primaryStage.setTitle(windowName);
 		primaryStage.setScene(secondScene);
 		primaryStage.show();
 	}
@@ -96,7 +95,7 @@ public class Controller {
 		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("Login");
+		primaryStage.setTitle(windowName);
 		primaryStage.setScene(secondScene);
 		primaryStage.show();
 	}
@@ -110,7 +109,7 @@ public class Controller {
 		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("Evidencija");
+		primaryStage.setTitle(windowName);
 		primaryStage.setScene(secondScene);
 		primaryStage.show();
 	}
@@ -124,7 +123,7 @@ public class Controller {
 		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("Menu");
+		primaryStage.setTitle(windowName);
 		primaryStage.setScene(secondScene);
 		primaryStage.show();
 	}
@@ -138,7 +137,7 @@ public class Controller {
 		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("Menu");
+		primaryStage.setTitle(windowName);
 		primaryStage.setScene(secondScene);
 		primaryStage.show();
 	}
@@ -152,7 +151,7 @@ public class Controller {
 		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("Menu");
+		primaryStage.setTitle(windowName);
 		primaryStage.setScene(secondScene);
 		primaryStage.show();
 	}
@@ -166,7 +165,7 @@ public class Controller {
 		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("Zaposlenici");
+		primaryStage.setTitle(windowName);
 		primaryStage.setScene(secondScene);
 		primaryStage.show();
 	}
@@ -278,7 +277,7 @@ public class Controller {
 		}else if(usernameExistence == 0 && emailExistence == 0 && enterPassword.getText().equals(reEnterPassword.getText())) {
 				int successRegister = db.addUserRegister(Users.username, Users.password, Users.email, Users.ime, Users.prezime, Users.drzava,
 						Users.grad, Users.brojMobitela, Users.pozicija, Users.placaProslogMjeseca, Users.putniTroskovi, Users.bodovi,
-						Users.satiMjesecno, Users.ukupnoStecenihRadnihSati,Users.preostaliDaniGodisnjegOdmora);
+						Users.satiMjesecno, Users.ukupnoStecenihRadnihSati,Users.preostaliDaniGodisnjegOdmora, Users.roleId);
 
 				if(successRegister >= 1){
 					validRegisterLabel.setVisible(true);
@@ -309,7 +308,12 @@ public class Controller {
 		login.password = hashingPassword.toHexString(hashingPassword.getSHA(passwordField.getText()));
 		int count = db.dbLogin(login.username, login.password);
 
-		if (count == 1) {
+		if (count == 1){
+			UserSession.userId = db.dbGetUserId(login.username);
+			UserSession.username = login.username;
+			Role.roleId = db.dbGetRoleId(UserSession.username);
+			Role.roleName = db.dbGetRoleName(Role.roleId);
+
 			FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/frontend/Menu.fxml"));
 			Parent registerPane = pageLoader.load();
 			Scene secondScene = new Scene(registerPane, 800, 500);
@@ -317,7 +321,7 @@ public class Controller {
 			Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 			primaryStage.setResizable(false);
-			primaryStage.setTitle("Menu");
+			primaryStage.setTitle(windowName);
 			primaryStage.setScene(secondScene);
 			primaryStage.show();
 		} else {
@@ -338,7 +342,23 @@ public class Controller {
 	}
 
 	@FXML
+	public void logout(ActionEvent event) throws IOException {
+		session.clearSession();
+		FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/frontend/Login.fxml"));
+		Parent registerPane = pageLoader.load();
+		Scene secondScene = new Scene(registerPane, 800, 500);
+
+		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+		primaryStage.setResizable(false);
+		primaryStage.setTitle(windowName);
+		primaryStage.setScene(secondScene);
+		primaryStage.show();
+	}
+
+	@FXML
 	public void initialize() {
+		userInfoLabel.setText(UserSession.username);
 		localTime();
 	}
 

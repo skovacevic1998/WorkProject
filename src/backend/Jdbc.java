@@ -27,6 +27,71 @@ public class Jdbc {
 		}
 		return count;
 	}
+	public int dbGetUserId(String username) {
+		int userId = 0;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT id FROM users WHERE username=?");
+
+			stmt.setString(1,username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				userId = rs.getInt(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return userId;
+	}
+
+	public String dbGetRoleName(int roleId){
+		String roleName = null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT roleName FROM role WHERE id=?");
+
+			stmt.setInt(1, roleId);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				roleName = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return roleName;
+	}
+
+	public int dbGetRoleId(String username){
+		int roleId = 0;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT roleId FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				roleId = rs.getInt(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return roleId;
+	}
 
 	public int checkUsernameExistence(String username) {
 		int count = 0;
@@ -76,7 +141,7 @@ public class Jdbc {
 							   String prezime, String drzava, String grad, String brojMobitela,
 							   String pozicija, String placaProslogMjeseca, String putniTroskovi,
 							   String bodovi, String satiMjesecno, String ukupnoStecenihRadnihSati,
-							   String preostaliDaniGodisnjegOdmora) {
+							   String preostaliDaniGodisnjegOdmora, int roleId) {
 		int success = 0;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -84,8 +149,8 @@ public class Jdbc {
 					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
 			PreparedStatement stmt = con.prepareStatement("INSERT INTO users (username, password, email, ime, prezime, " +
 					"drzava, grad, brojMobitela, pozicija, placaProslogMjeseca, putniTroskovi, bodovi, satiMjesecno," +
-					"ukupnoStecenihRadnihSati, preostaliDaniGodisnjegOdmora) " +
-					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					"ukupnoStecenihRadnihSati, preostaliDaniGodisnjegOdmora, roleId) " +
+					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			stmt.setString(1, username);
 			stmt.setString(2, password);
@@ -102,10 +167,13 @@ public class Jdbc {
 			stmt.setString(13, satiMjesecno);
 			stmt.setString(14, ukupnoStecenihRadnihSati);
 			stmt.setString(15, preostaliDaniGodisnjegOdmora);
+			stmt.setInt(16, roleId);
 
-			int rsInsert = stmt.executeUpdate();
+			rs = stmt.executeQuery();
 
-			success = 1;
+			if(rs.next()){
+				success = rs.getInt(1);
+			}
 
 			con.close();
 		} catch (Exception e) {
@@ -113,27 +181,4 @@ public class Jdbc {
 		}
 		return success;
 	}
-
-	public int dbCheckUsername(String username) {
-		int count = 0;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager
-					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
-			PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM users WHERE username=?");
-
-			stmt.setString(1, username);
-			rs = stmt.executeQuery();
-
-			if (rs.next())
-				count = rs.getInt(1);
-
-			con.close();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return count;
-	}
-
-
 }

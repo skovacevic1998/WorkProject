@@ -11,7 +11,7 @@
             <Button fx:id="userProfileButton" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleProfileButtonAction" prefWidth="150.0" text="Profil" />
             <Button fx:id="zaposleniciButton" layoutX="14.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleZaposleniciButtonAction" prefWidth="150.0" text="Zaposlenici" />
             <Button fx:id="evidencijaButton" layoutX="14.0" layoutY="191.0" mnemonicParsing="false" onAction="#handleEvidencijaButtonAction" prefWidth="150.0" text="Evidencija" />
-            <Button fx:id="kontaktiButton1" layoutX="14.0" layoutY="227.0" mnemonicParsing="false" onAction="#handleProfileButtonAction" prefWidth="150.0" text="Kontakti" />
+            <Button fx:id="kontaktiButton1" layoutX="14.0" layoutY="227.0" mnemonicParsing="false" prefWidth="150.0" text="Kontakti" />
          </children>
       </AnchorPane>
    </left>
@@ -28,7 +28,8 @@
                   <Image url="@../../Images/mainCover.png" />
                </image>
             </ImageView>
-            <Label fx:id="userInfoLabel" alignment="BOTTOM_RIGHT" layoutX="649.0" prefHeight="17.0" prefWidth="140.0" text="Prijavljeni korisnik" textFill="WHITE" />
+            <Label fx:id="userInfoLabel" alignment="BOTTOM_LEFT" layoutX="660.0" prefHeight="17.0" prefWidth="140.0" text="Prijavljeni korisnik" textFill="WHITE" />
+            <Label alignment="BOTTOM_RIGHT" layoutX="618.0" prefHeight="17.0" prefWidth="33.0" text="USER:" textFill="WHITE" />
          </children>
       </AnchorPane>
    </top>
@@ -36,7 +37,7 @@
       <AnchorPane prefHeight="38.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="timeLabel" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="16.0" prefHeight="17.0" prefWidth="137.0" text="Datum i vrijeme" textFill="WHITE" />
-            <Button fx:id="logoutButton" layoutX="730.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="25.0" prefWidth="56.0" text="Odjava" />
+            <Button fx:id="logoutButton" layoutX="730.0" layoutY="2.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="56.0" text="Odjava" />
          </children>
       </AnchorPane>
    </bottom>

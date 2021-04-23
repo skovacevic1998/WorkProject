@@ -35,7 +35,8 @@
               </columns>
             </TableView>
             <Button fx:id="backButton" layoutX="540.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleMenuButtonAction" prefWidth="56.0" text="Back" />
-            <Label fx:id="userInfoLabel" alignment="TOP_RIGHT" layoutX="437.0" prefHeight="17.0" prefWidth="159.0" text="Prijavljeni korisnik" textFill="WHITE" />
+            <Label fx:id="userInfoLabel" alignment="BOTTOM_LEFT" layoutX="470.0" prefHeight="17.0" prefWidth="140.0" text="Prijavljeni korisnik" textFill="WHITE" />
+            <Label alignment="BOTTOM_LEFT" layoutX="430.0" prefHeight="17.0" prefWidth="34.0" text="USER:" textFill="WHITE" />
          </children>
       </AnchorPane>
    </right>

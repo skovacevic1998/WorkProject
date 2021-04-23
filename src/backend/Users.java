@@ -1,6 +1,7 @@
 package backend;
 
 public class Users extends Controller {
+	static int userId = 0;
 	static String username = "username";
 	static String password = "password";
 	static String email = "email";
@@ -16,12 +17,14 @@ public class Users extends Controller {
 	static String satiMjesecno = "satiMjesecno";
 	static String ukupnoStecenihRadnihSati = "ukupnoStecenihRadnihSati";
 	static String preostaliDaniGodisnjegOdmora = "preostaliDaniGodisnjegOdmora";
+	static int roleId = -1;
 
-	public Users(String username, String password, String email, String ime,
+	public Users(int userId, String username, String password, String email, String ime,
 				 String prezime, String drzava, String grad, String brojMobitela,
 				 String pozicija, String placaProslogMjeseca, String putniTroskovi,
 				 String bodovi, String satiMjesecno, String ukupnoStecenihRadnihSati,
-				 String preostaliDaniGodisnjegOdmora) {
+				 String preostaliDaniGodisnjegOdmora, int roleId) {
+		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -37,5 +40,6 @@ public class Users extends Controller {
 		this.satiMjesecno = satiMjesecno;
 		this.ukupnoStecenihRadnihSati = ukupnoStecenihRadnihSati;
 		this.preostaliDaniGodisnjegOdmora = preostaliDaniGodisnjegOdmora;
+		this.roleId = roleId;
 	}
 }
