@@ -65,6 +65,7 @@
             <Label fx:id="emptyPasswordLabel" alignment="CENTER" layoutX="345.0" layoutY="268.0" prefHeight="17.0" prefWidth="71.0" text="Empty field!" textFill="RED" visible="false" />
             <Label fx:id="emptyUsernameLabel" alignment="CENTER" layoutX="366.0" layoutY="221.0" prefHeight="17.0" prefWidth="71.0" text="Empty field!" textFill="RED" visible="false" />
             <Label fx:id="requiredEmailCharacterLabel" alignment="CENTER" layoutX="351.0" layoutY="310.0" prefHeight="17.0" prefWidth="111.0" text="Wrong email format!" textFill="RED" visible="false" />
+            <Label fx:id="passwordErrorMinimumCharactersLabel" alignment="CENTER" layoutX="345.0" layoutY="268.0" prefHeight="17.0" prefWidth="128.0" text="Minimum 8 characters!" textFill="RED" visible="false" />
          </children>
       </AnchorPane>
    </center>

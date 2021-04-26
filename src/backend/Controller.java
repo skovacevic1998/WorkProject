@@ -70,6 +70,8 @@ public class Controller {
 	public Label requiredEmailCharacterLabel;
 	@FXML
 	public Button logoutButton;
+	@FXML
+	public Label passwordErrorMinimumCharactersLabel;
 
 	@FXML
 	private void handleRegisterButtonAction(ActionEvent event) throws IOException {
@@ -232,6 +234,30 @@ public class Controller {
 			TimerTask task = new TimerTask() {
 				public void run() {
 					passwordErrorLabel.setVisible(false);
+				}
+			};
+			Timer timer = new Timer("Timer");
+
+			long delay = 3000L;
+			timer.schedule(task, delay);
+
+		}else if(enterPassword.getLength() < 8 && reEnterPassword.getLength() < 8){
+			passwordErrorMinimumCharactersLabel.setVisible(true);
+			TimerTask task = new TimerTask() {
+				public void run() {
+					passwordErrorMinimumCharactersLabel.setVisible(false);
+				}
+			};
+			Timer timer = new Timer("Timer");
+
+			long delay = 3000L;
+			timer.schedule(task, delay);
+
+		}else if(enterUsername.getLength() < 4){
+			passwordErrorMinimumCharactersLabel.setVisible(true);
+			TimerTask task = new TimerTask() {
+				public void run() {
+					passwordErrorMinimumCharactersLabel.setVisible(false);
 				}
 			};
 			Timer timer = new Timer("Timer");
