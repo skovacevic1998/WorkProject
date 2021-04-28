@@ -194,7 +194,6 @@ public class Controller {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(enterEmail.getText());
 
-
 		if(enterUsername.getText().isEmpty()){
 			emptyUsernameLabel.setVisible(true);
 			TimerTask task = new TimerTask() {

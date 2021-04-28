@@ -169,10 +169,10 @@ public class Jdbc {
 			stmt.setString(15, preostaliDaniGodisnjegOdmora);
 			stmt.setInt(16, roleId);
 
-			rs = stmt.executeQuery();
+			int rb = stmt.executeUpdate();
 
-			if(rs.next()){
-				success = rs.getInt(1);
+			if(rb == 1){
+				success = rb;
 			}
 
 			con.close();
