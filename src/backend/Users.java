@@ -2,21 +2,22 @@ package backend;
 
 public class Users extends Controller {
 	static int userId = 0;
-	static String username = "username";
-	static String password = "password";
-	static String email = "email";
-	static String ime = "ime";
-	static String prezime = "prezime";
-	static String drzava = "drzava";
-	static String grad = "grad";
-	static String brojMobitela = "brojMobitela";
-	static String pozicija = "pozicija";
-	static String placaProslogMjeseca = "placaProslogMjeseca";
-	static String putniTroskovi = "putniTroskovi";
-	static String bodovi = "bodovi";
-	static String satiMjesecno = "satiMjesecno";
-	static String ukupnoStecenihRadnihSati = "ukupnoStecenihRadnihSati";
-	static String preostaliDaniGodisnjegOdmora = "preostaliDaniGodisnjegOdmora";
+	static String username = "";
+	static String password = "";
+	static String email = "";
+	static String ime = "";
+	static String prezime = "";
+	static String drzava = "";
+	static String grad = "";
+	static String brojMobitela = "";
+	static String pozicija = "N/A";
+	static String placaProslogMjeseca = "0";
+	static String putniTroskovi = "0";
+	static String bodovi = "0";
+	static String satiMjesecno = "0";
+	static String ukupnoStecenihRadnihSati = "0";
+	static String preostaliDaniGodisnjegOdmora = "0" +
+			"";
 	static int roleId = 0;
 
 	public Users(int userId, String username, String password, String email, String ime,

@@ -181,4 +181,398 @@ public class Jdbc {
 		}
 		return success;
 	}
+
+	public String getUserName(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT ime FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public String getUserSurname(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT prezime FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public String getUserEmail(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT email FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public String getUserState(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT drzava FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public String getUserCity(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT grad FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public String getUserNumber(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT brojMobitela FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public String getUserPosition(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT pozicija FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public String getUserLastMonthPayment(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT placaProslogMjeseca FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public String getUserTravelExpenses(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT putniTroskovi FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public String getUserPoints(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT bodovi FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public String getUserWorkedHoursMonthly(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT satiMjesecno FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public String getUserTotalWorkingHours(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT ukupnoStecenihRadnihSati FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public String getUserFreeDays(String username) {
+		String string = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT preostaliDaniGodisnjegOdmora FROM users WHERE username=?");
+
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next())
+				string = rs.getString(1);
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return string;
+	}
+
+	public void updateIme(String username, String source) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("UPDATE users SET ime=? WHERE username=?");
+
+			stmt.setString(1, source);
+			stmt.setString(2, username);
+
+			stmt.executeUpdate();
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public void updatePrezime(String username, String source) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("UPDATE users SET prezime=? WHERE username=?");
+
+			stmt.setString(1, source);
+			stmt.setString(2, username);
+
+			stmt.executeUpdate();
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public void updateEmail(String username, String source) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("UPDATE users SET email=? WHERE username=?");
+
+			stmt.setString(1, source);
+			stmt.setString(2, username);
+
+			stmt.executeUpdate();
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public void updateDrzava(String username, String source) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("UPDATE users SET drzava=? WHERE username=?");
+
+			stmt.setString(1, source);
+			stmt.setString(2, username);
+
+			stmt.executeUpdate();
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public void updateGrad(String username, String source) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("UPDATE users SET grad=? WHERE username=?");
+
+			stmt.setString(1, source);
+			stmt.setString(2, username);
+
+			stmt.executeUpdate();
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public void updateBrojMobitela(String username, String source) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("UPDATE users SET brojMobitela=? WHERE username=?");
+
+			stmt.setString(1, source);
+			stmt.setString(2, username);
+
+			stmt.executeUpdate();
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }

@@ -33,6 +33,7 @@ public class Controller {
 	public static String windowName = "WorkProject";
 	UserSession session = new UserSession();
 	Jdbc db = new Jdbc();
+	String idLabeleZaPromjenu = "null";
 
 	@FXML
 	public Label timeLabel = new Label();
@@ -74,6 +75,89 @@ public class Controller {
 	public Label passwordErrorMinimumCharactersLabel;
 	@FXML
 	public Label usernameErrorMinimumCharactersLabel;
+	@FXML
+	public Label username_lbl = new Label();
+	@FXML
+	public Label ime_lbl = new Label();
+	@FXML
+	public Label prezime_lbl = new Label();
+	@FXML
+	public Label email_lbl = new Label();
+	@FXML
+	public Label drzava_lbl = new Label();
+	@FXML
+	public Label grad_lbl = new Label();
+	@FXML
+	public Label brojMobitela_lbl = new Label();
+	@FXML
+	public Label pozicija_lbl = new Label();
+	@FXML
+	public Label placaProslogMjeseca_lbl = new Label();
+	@FXML
+	public Label putniTroskovi_lbl = new Label();
+	@FXML
+	public Label bodovi_lbl = new Label();
+	@FXML
+	public Label radniSatiMjesecno_lbl = new Label();
+	@FXML
+	public Label ukupniRadniSati_lbl = new Label();
+	@FXML
+	public Label daniGodisnjegOdmora_lbl = new Label();
+	@FXML
+	public Label lblPromjeneImena = new Label();
+	@FXML
+	public Label lblPromjenePrezimena = new Label();
+	@FXML
+	public Label lblPromjeneEmaila = new Label();
+	@FXML
+	public Label lblPromjeneDrzave = new Label();
+	@FXML
+	public Label lblPromjeneGrada = new Label();
+	@FXML
+	public Label lblPromjeneBrojaMobitela = new Label();
+	@FXML
+	public TextField editIme_txtField;
+	@FXML
+	public TextField editPrezime_txtField;
+	@FXML
+	public TextField editEmail_txtField;
+	@FXML
+	public TextField editDrzava_txtField;
+	@FXML
+	public TextField editGrad_txtField;
+	@FXML
+	public TextField editBrojMobitela_txtField;
+	@FXML
+	public Button editIme_btn;
+	@FXML
+	public Button editPrezime_btn;
+	@FXML
+	public Button editEmail_btn;
+	@FXML
+	public Button editDrzava_btn;
+	@FXML
+	public Button editGrad_btn;
+	@FXML
+	public Button editBrojMobitela_btn;
+	@FXML
+	public Button saveIme_btn;
+	@FXML
+	public Button savePrezime_btn;
+	@FXML
+	public Button saveEmail_btn;
+	@FXML
+	public Button saveDrzava_btn;
+	@FXML
+	public Button saveGrad_btn;
+	@FXML
+	public Button saveBrojMobitela_btn;
+	@FXML
+	public Label emailEmptyError_lbl = new Label();
+	@FXML
+	public Label emailExistsError_lbl = new Label();
+	@FXML
+	public Label emailFormatError_lbl = new Label();
+
 
 	@FXML
 	private void handleRegisterButtonAction(ActionEvent event) throws IOException {
@@ -175,7 +259,7 @@ public class Controller {
 	}
 
 	@FXML
-	private void registerValidation(ActionEvent event) throws IOException, NoSuchAlgorithmException {
+	private void registerValidation(ActionEvent event) throws NoSuchAlgorithmException {
 		event.consume();
 		Jdbc db = new Jdbc();
 
@@ -341,6 +425,8 @@ public class Controller {
 			Role.roleId = db.dbGetRoleId(UserSession.username);
 			Role.roleName = db.dbGetRoleName(Role.roleId);
 
+
+
 			FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/frontend/Menu.fxml"));
 			Parent registerPane = pageLoader.load();
 			Scene secondScene = new Scene(registerPane, 800, 500);
@@ -369,6 +455,219 @@ public class Controller {
 	}
 
 	@FXML
+	public void editAction(ActionEvent event) throws IOException {
+		Node source = (Node) event.getSource();
+		String id = source.getId();
+
+		if(id == editIme_btn.getId()){
+			editIme_btn.setVisible(false);
+			editPrezime_btn.setVisible(false);
+			editEmail_btn.setVisible(false);
+			editDrzava_btn.setVisible(false);
+			editGrad_btn.setVisible(false);
+			editBrojMobitela_btn.setVisible(false);
+
+			saveIme_btn.setVisible(true);
+			editIme_txtField.setVisible(true);
+		}
+
+		if(id == editPrezime_btn.getId()){
+			editIme_btn.setVisible(false);
+			editPrezime_btn.setVisible(false);
+			editEmail_btn.setVisible(false);
+			editDrzava_btn.setVisible(false);
+			editGrad_btn.setVisible(false);
+			editBrojMobitela_btn.setVisible(false);
+
+			savePrezime_btn.setVisible(true);
+			editPrezime_txtField.setVisible(true);
+		}
+
+		if(id == editEmail_btn.getId()){
+			editIme_btn.setVisible(false);
+			editPrezime_btn.setVisible(false);
+			editEmail_btn.setVisible(false);
+			editDrzava_btn.setVisible(false);
+			editGrad_btn.setVisible(false);
+			editBrojMobitela_btn.setVisible(false);
+
+			saveEmail_btn.setVisible(true);
+			editEmail_txtField.setVisible(true);
+		}
+
+		if(id == editDrzava_btn.getId()){
+			editIme_btn.setVisible(false);
+			editPrezime_btn.setVisible(false);
+			editEmail_btn.setVisible(false);
+			editDrzava_btn.setVisible(false);
+			editGrad_btn.setVisible(false);
+			editBrojMobitela_btn.setVisible(false);
+
+			saveDrzava_btn.setVisible(true);
+			editDrzava_txtField.setVisible(true);
+		}
+
+		if(id == editGrad_btn.getId()){
+			editIme_btn.setVisible(false);
+			editPrezime_btn.setVisible(false);
+			editEmail_btn.setVisible(false);
+			editDrzava_btn.setVisible(false);
+			editGrad_btn.setVisible(false);
+			editBrojMobitela_btn.setVisible(false);
+
+			saveGrad_btn.setVisible(true);
+			editGrad_txtField.setVisible(true);
+		}
+
+		if(id == editBrojMobitela_btn.getId()){
+			editIme_btn.setVisible(false);
+			editPrezime_btn.setVisible(false);
+			editEmail_btn.setVisible(false);
+			editDrzava_btn.setVisible(false);
+			editGrad_btn.setVisible(false);
+			editBrojMobitela_btn.setVisible(false);
+
+			saveBrojMobitela_btn.setVisible(true);
+			editBrojMobitela_txtField.setVisible(true);
+		}
+		//----------------------------------------------------------
+
+		if (id == saveIme_btn.getId()){
+			String content = editIme_txtField.getText();
+			db.updateIme(UserSession.username,content);
+
+			editIme_btn.setVisible(true);
+			editPrezime_btn.setVisible(true);
+			editEmail_btn.setVisible(true);
+			editDrzava_btn.setVisible(true);
+			editGrad_btn.setVisible(true);
+			editBrojMobitela_btn.setVisible(true);
+
+			saveIme_btn.setVisible(false);
+			editIme_txtField.setVisible(false);
+		}
+
+		if (id == savePrezime_btn.getId()){
+			String content = editPrezime_txtField.getText();
+			db.updatePrezime(UserSession.username,content);
+
+			editIme_btn.setVisible(true);
+			editPrezime_btn.setVisible(true);
+			editEmail_btn.setVisible(true);
+			editDrzava_btn.setVisible(true);
+			editGrad_btn.setVisible(true);
+			editBrojMobitela_btn.setVisible(true);
+
+			savePrezime_btn.setVisible(false);
+			editPrezime_txtField.setVisible(false);
+		}
+
+		if (id == saveEmail_btn.getId()){
+			String content = editEmail_txtField.getText();
+			int emailExistence = db.checkEmailExistence(content);
+			String regex = "^(.+)@(.+)$";
+			Pattern pattern = Pattern.compile(regex);
+			Matcher matcher = pattern.matcher(content);
+
+			if(content.isEmpty()) {
+				emailEmptyError_lbl.setVisible(true);
+				TimerTask task = new TimerTask() {
+					public void run() {
+						emailEmptyError_lbl.setVisible(false);
+					}
+				};
+				Timer timer = new Timer("Timer");
+
+				long delay = 3000L;
+				timer.schedule(task, delay);
+
+			}else if(matcher.matches() == false){
+				emailFormatError_lbl.setVisible(true);
+				TimerTask task = new TimerTask() {
+					public void run() {
+						emailFormatError_lbl.setVisible(false);
+					}
+				};
+				Timer timer = new Timer("Timer");
+
+				long delay = 3000L;
+				timer.schedule(task, delay);
+
+			}else if(emailExistence >= 1){
+				emailExistsError_lbl.setVisible(true);
+				TimerTask task = new TimerTask() {
+					public void run() {
+						emailExistsError_lbl.setVisible(false);
+					}
+				};
+				Timer timer = new Timer("Timer");
+
+				long delay = 3000L;
+				timer.schedule(task, delay);
+			}else{
+				db.updateEmail(UserSession.username,content);
+
+				editIme_btn.setVisible(true);
+				editPrezime_btn.setVisible(true);
+				editEmail_btn.setVisible(true);
+				editDrzava_btn.setVisible(true);
+				editGrad_btn.setVisible(true);
+				editBrojMobitela_btn.setVisible(true);
+
+				saveEmail_btn.setVisible(false);
+				editEmail_txtField.setVisible(false);
+			}
+		}
+
+		if (id == saveDrzava_btn.getId()){
+			String content = editDrzava_txtField.getText();
+			db.updateDrzava(UserSession.username,content);
+
+			editIme_btn.setVisible(true);
+			editPrezime_btn.setVisible(true);
+			editEmail_btn.setVisible(true);
+			editDrzava_btn.setVisible(true);
+			editGrad_btn.setVisible(true);
+			editBrojMobitela_btn.setVisible(true);
+
+			saveDrzava_btn.setVisible(false);
+			editDrzava_txtField.setVisible(false);
+		}
+
+		if (id == saveGrad_btn.getId()){
+			String content = editGrad_txtField.getText();
+			db.updateGrad(UserSession.username,content);
+
+			editIme_btn.setVisible(true);
+			editPrezime_btn.setVisible(true);
+			editEmail_btn.setVisible(true);
+			editDrzava_btn.setVisible(true);
+			editGrad_btn.setVisible(true);
+			editBrojMobitela_btn.setVisible(true);
+
+			saveGrad_btn.setVisible(false);
+			editGrad_txtField.setVisible(false);
+		}
+
+		if (id == saveBrojMobitela_btn.getId()){
+			String content = editBrojMobitela_txtField.getText();
+			db.updateBrojMobitela(UserSession.username,content);
+
+			editIme_btn.setVisible(true);
+			editPrezime_btn.setVisible(true);
+			editEmail_btn.setVisible(true);
+			editDrzava_btn.setVisible(true);
+			editGrad_btn.setVisible(true);
+			editBrojMobitela_btn.setVisible(true);
+
+			saveBrojMobitela_btn.setVisible(false);
+			editBrojMobitela_txtField.setVisible(false);
+
+		}
+		initialize();
+	}
+
+	@FXML
 	public void logout(ActionEvent event) throws IOException {
 		session.clearSession();
 		FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/frontend/Login.fxml"));
@@ -385,7 +684,21 @@ public class Controller {
 
 	@FXML
 	public void initialize() {
+		username_lbl.setText(UserSession.username);
 		userInfoLabel.setText(UserSession.username);
+		ime_lbl.setText(db.getUserName(UserSession.username));
+		prezime_lbl.setText(db.getUserSurname(UserSession.username));
+		email_lbl.setText(db.getUserEmail(UserSession.username));
+		drzava_lbl.setText(db.getUserState(UserSession.username));
+		grad_lbl.setText(db.getUserCity(UserSession.username));
+		brojMobitela_lbl.setText(db.getUserNumber(UserSession.username));
+		pozicija_lbl.setText(db.getUserPosition(UserSession.username));
+		placaProslogMjeseca_lbl.setText(db.getUserLastMonthPayment(UserSession.username));
+		putniTroskovi_lbl.setText(db.getUserTravelExpenses(UserSession.username));
+		bodovi_lbl.setText(db.getUserPoints(UserSession.username));
+		radniSatiMjesecno_lbl.setText(db.getUserWorkedHoursMonthly(UserSession.username));
+		ukupniRadniSati_lbl.setText(db.getUserTotalWorkingHours(UserSession.username));
+		daniGodisnjegOdmora_lbl.setText(db.getUserFreeDays(UserSession.username));
 		localTime();
 	}
 
