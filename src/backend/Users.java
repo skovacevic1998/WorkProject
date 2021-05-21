@@ -16,8 +16,7 @@ public class Users extends Controller {
 	static String bodovi = "0";
 	static String satiMjesecno = "0";
 	static String ukupnoStecenihRadnihSati = "0";
-	static String preostaliDaniGodisnjegOdmora = "0" +
-			"";
+	static String preostaliDaniGodisnjegOdmora = "0";
 	static int roleId = 0;
 
 	public Users(int userId, String username, String password, String email, String ime,
