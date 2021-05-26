@@ -8,25 +8,22 @@
 		<center>
 			<AnchorPane prefHeight="500.0" prefWidth="750.0" BorderPane.alignment="CENTER">
 				<children>
-					<TextArea layoutX="249.0" layoutY="374.0" prefHeight="72.0" prefWidth="469.0" promptText="Opis posla..." />
-					<Button fx:id="backButton" layoutX="730.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleMenuButtonAction" prefWidth="56.0" text="Back" />
-					<TableView layoutX="202.0" layoutY="57.0" prefHeight="300.0" prefWidth="562.0">
+					<Button fx:id="backButton" layoutX="738.0" layoutY="466.0" mnemonicParsing="false" onAction="#handleMenuButtonAction" prefWidth="56.0" text="Back" />
+					<TableView fx:id="tableContent" layoutX="102.0" layoutY="34.0" prefHeight="270.0" prefWidth="616.0">
 						<columns>
-							<TableColumn prefWidth="25.0" text="ID" />
-							<TableColumn text="Korisnik" />
-							<TableColumn prefWidth="78.0" text="Pocetak rada" />
-							<TableColumn prefWidth="59.0" text="Kraj rada" />
-							<TableColumn prefWidth="77.0" text="Ukupno sati" />
-							<TableColumn minWidth="0.0" prefWidth="70.0" text="Datum" />
-							<TableColumn prefWidth="192.0" text="Opis" />
+							<TableColumn fx:id="col_br" prefWidth="25.0" text="Br." />
+							<TableColumn fx:id="col_vrOd" prefWidth="78.0" text="Pocetak rada" />
+							<TableColumn fx:id="col_vrDo" minWidth="8.0" prefWidth="57.0" text="Kraj rada" />
+							<TableColumn fx:id="col_dat" minWidth="0.0" prefWidth="92.0" text="Datum" />
+							<TableColumn fx:id="col_opis" prefWidth="288.0" text="Opis posla" />
+							<TableColumn fx:id="col_brSati" minWidth="0.0" prefWidth="75.0" text="Ukupno sati" />
 						</columns>
 					</TableView>
 					<Label fx:id="userInfoLabel" alignment="BOTTOM_LEFT" layoutX="660.0" prefHeight="17.0" prefWidth="140.0" text="Prijavljeni korisnik" textFill="WHITE" />
-					<DatePicker layoutX="14.0" layoutY="263.0" prefHeight="25.0" prefWidth="150.0" promptText="Datum..." />
-					<TextField layoutX="15.0" layoutY="298.0" promptText="Pocetak rada..." />
-					<TextField layoutX="15.0" layoutY="332.0" promptText="Zavrsetak rada..." />
-					<Button layoutX="15.0" layoutY="366.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Send" />
-					<Button layoutX="92.0" layoutY="366.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Refresh" />
+					<DatePicker fx:id="datePickerForSearch" layoutX="102.0" layoutY="311.0" prefHeight="25.0" prefWidth="150.0" promptText="Datum..." />
+					<TextField layoutX="384.0" layoutY="458.0" prefHeight="25.0" prefWidth="92.0" promptText="hh:mm" />
+					<TextField layoutX="513.0" layoutY="457.0" prefHeight="25.0" prefWidth="102.0" promptText="hh:mm" />
+					<Button fx:id="loadAllTable_btn" layoutX="646.0" layoutY="311.0" mnemonicParsing="false" onAction="#searchTable" prefHeight="25.0" prefWidth="72.0" text="All" />
 					<Label fx:id="timeLabel" layoutX="6.0" layoutY="478.0" prefHeight="17.0" prefWidth="154.0" text="Datum i vrijeme" textFill="WHITE" />
 					<ImageView fitHeight="75.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
 						<image>
@@ -34,6 +31,19 @@
 						</image>
 					</ImageView>
             <Label layoutX="620.0" text="USER:" textFill="WHITE" />
+            <TextArea layoutX="101.0" layoutY="363.0" prefHeight="55.0" prefWidth="619.0" promptText="Opis posla..." />
+            <Label layoutX="26.0" layoutY="364.0" text="Informacije" textFill="WHITE" />
+            <Label layoutX="7.0" layoutY="418.0" prefHeight="20.0" prefWidth="95.0" text="Unesi opis posla" textFill="WHITE" />
+            <TextField layoutX="101.0" layoutY="424.0" prefHeight="27.0" prefWidth="620.0" promptText="Unesite text..." />
+            <Label layoutX="9.0" layoutY="432.0" prefHeight="20.0" prefWidth="95.0" text="današnjeg dana:" textFill="WHITE" />
+            <Button layoutX="667.0" layoutY="457.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="Submit" />
+            <Label layoutX="25.0" layoutY="378.0" text="polja tablice:" textFill="WHITE" />
+            <Label layoutX="102.0" layoutY="461.0" text="Vrijeme rada:" textFill="WHITE" />
+            <Label layoutX="359.0" layoutY="461.0" text="od" textFill="WHITE" />
+            <Label layoutX="487.0" layoutY="461.0" text="do" textFill="WHITE" />
+            <Label layoutX="182.0" layoutY="462.0" text="Datuma" textFill="WHITE" />
+            <DatePicker layoutX="234.0" layoutY="458.0" prefHeight="25.0" prefWidth="114.0" />
+            <Button fx:id="searchTable_btn" layoutX="262.0" layoutY="311.0" mnemonicParsing="false" onAction="#searchByDate" prefHeight="25.0" prefWidth="72.0" text="Search" />
 				</children>
 			</AnchorPane>
 		</center>

@@ -10,10 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -21,6 +19,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
@@ -33,7 +32,7 @@ public class Controller {
 	public static String windowName = "WorkProject";
 	UserSession session = new UserSession();
 	Jdbc db = new Jdbc();
-	String idLabeleZaPromjenu = "null";
+	Evidencija evidencija = new Evidencija();
 
 	@FXML
 	public Label timeLabel = new Label();
@@ -157,6 +156,23 @@ public class Controller {
 	public Label emailExistsError_lbl = new Label();
 	@FXML
 	public Label emailFormatError_lbl = new Label();
+	@FXML
+	public TableView<Evidencija> tableContent;
+	@FXML
+	public TableColumn<Evidencija, Integer> col_br = new TableColumn<>();
+	@FXML
+	public TableColumn<Evidencija, Integer> col_vrOd = new TableColumn<>();
+	@FXML
+	public TableColumn<Evidencija, Integer> col_vrDo = new TableColumn<>();
+	@FXML
+	public TableColumn<Evidencija, Integer> col_dat = new TableColumn<>();
+	@FXML
+	public TableColumn<Evidencija, Integer> col_opis = new TableColumn<>();
+	@FXML
+	public TableColumn<Evidencija, Integer> col_brSati = new TableColumn<>();
+	@FXML
+	public DatePicker datePickerForSearch;
+
 
 
 	@FXML
@@ -209,6 +225,8 @@ public class Controller {
 		Scene secondScene = new Scene(registerPane, 800, 500);
 
 		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+		db.oblist.removeAll();
 
 		primaryStage.setResizable(false);
 		primaryStage.setTitle(windowName);
@@ -665,6 +683,39 @@ public class Controller {
 
 		}
 		initialize();
+	}
+
+	@FXML
+	public void searchTable(ActionEvent event){
+		db.oblist.removeAll();
+		tableContent.getItems().clear();
+		db.tableData();
+
+		col_br.setCellValueFactory(new PropertyValueFactory<>("br"));
+		col_vrOd.setCellValueFactory(new PropertyValueFactory<>("vrijemeDolaska"));
+		col_vrDo.setCellValueFactory(new PropertyValueFactory<>("vrijemeOdlaska"));
+		col_dat.setCellValueFactory(new PropertyValueFactory<>("datumRada"));
+		col_opis.setCellValueFactory(new PropertyValueFactory<>("opisRada"));
+		col_brSati.setCellValueFactory(new PropertyValueFactory<>("ukupnoSatiRadnogDana"));
+
+		tableContent.setItems(db.oblist);
+	}
+
+	@FXML
+	public void searchByDate(){
+		db.oblist.removeAll();
+		tableContent.getItems().clear();
+		java.sql.Date gettedDatePickerDate = java.sql.Date.valueOf(datePickerForSearch.getValue());
+		db.tableDataByDate(gettedDatePickerDate.toString());
+
+		col_br.setCellValueFactory(new PropertyValueFactory<>("br"));
+		col_vrOd.setCellValueFactory(new PropertyValueFactory<>("vrijemeDolaska"));
+		col_vrDo.setCellValueFactory(new PropertyValueFactory<>("vrijemeOdlaska"));
+		col_dat.setCellValueFactory(new PropertyValueFactory<>("datumRada"));
+		col_opis.setCellValueFactory(new PropertyValueFactory<>("opisRada"));
+		col_brSati.setCellValueFactory(new PropertyValueFactory<>("ukupnoSatiRadnogDana"));
+
+		tableContent.setItems(db.oblist);
 	}
 
 	@FXML

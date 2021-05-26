@@ -1,10 +1,20 @@
 package backend;
 
-import java.sql.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Jdbc {
 	public String sql;
 	ResultSet rs;
+	private ObservableList<ObservableList> data;
+	private TableView tableview;
+	ObservableList<Evidencija> oblist = FXCollections.observableArrayList();
 
 	public int dbLogin(String username, String password) {
 		int count = 0;
@@ -572,6 +582,46 @@ public class Jdbc {
 
 			con.close();
 		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public void tableData(){
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM evidencija");
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()){
+				oblist.add(new Evidencija(rs.getInt("br"), rs.getString("vrijemeDolaska"),
+						rs.getString("vrijemeOdlaska"),rs.getString("datumRada"),rs.getString("opisRada"),
+						rs.getString("ukupnoSatiRadnogDana")));
+			}
+		}catch (Exception e){
+			System.out.println(e);
+		}
+	}
+
+	public void tableDataByDate(String source){
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM evidencija WHERE datumRada=?");
+
+			stmt.setString(1, source);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()){
+				oblist.add(new Evidencija(rs.getInt("br"), rs.getString("vrijemeDolaska"),
+						rs.getString("vrijemeOdlaska"),rs.getString("datumRada"),rs.getString("opisRada"),
+						rs.getString("ukupnoSatiRadnogDana")));
+			}
+		}catch (Exception e){
 			System.out.println(e);
 		}
 	}
