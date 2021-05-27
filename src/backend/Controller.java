@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
@@ -705,17 +704,20 @@ public class Controller {
 	public void searchByDate(){
 		db.oblist.removeAll();
 		tableContent.getItems().clear();
-		java.sql.Date gettedDatePickerDate = java.sql.Date.valueOf(datePickerForSearch.getValue());
-		db.tableDataByDate(gettedDatePickerDate.toString());
+		if(datePickerForSearch.getValue()!=null){
+			java.sql.Date gettedDatePickerDate = java.sql.Date.valueOf(datePickerForSearch.getValue());
 
-		col_br.setCellValueFactory(new PropertyValueFactory<>("br"));
-		col_vrOd.setCellValueFactory(new PropertyValueFactory<>("vrijemeDolaska"));
-		col_vrDo.setCellValueFactory(new PropertyValueFactory<>("vrijemeOdlaska"));
-		col_dat.setCellValueFactory(new PropertyValueFactory<>("datumRada"));
-		col_opis.setCellValueFactory(new PropertyValueFactory<>("opisRada"));
-		col_brSati.setCellValueFactory(new PropertyValueFactory<>("ukupnoSatiRadnogDana"));
+			db.tableDataByDate(gettedDatePickerDate.toString());
 
-		tableContent.setItems(db.oblist);
+			col_br.setCellValueFactory(new PropertyValueFactory<>("br"));
+			col_vrOd.setCellValueFactory(new PropertyValueFactory<>("vrijemeDolaska"));
+			col_vrDo.setCellValueFactory(new PropertyValueFactory<>("vrijemeOdlaska"));
+			col_dat.setCellValueFactory(new PropertyValueFactory<>("datumRada"));
+			col_opis.setCellValueFactory(new PropertyValueFactory<>("opisRada"));
+			col_brSati.setCellValueFactory(new PropertyValueFactory<>("ukupnoSatiRadnogDana"));
+
+			tableContent.setItems(db.oblist);
+		}
 	}
 
 	@FXML
