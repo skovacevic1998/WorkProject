@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 24, 2021 at 05:07 AM
+-- Generation Time: May 28, 2021 at 09:33 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `javaregistredusers`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `evidencija`
+--
+
+DROP TABLE IF EXISTS `evidencija`;
+CREATE TABLE IF NOT EXISTS `evidencija` (
+  `br` varchar(40) COLLATE cp1250_croatian_ci NOT NULL,
+  `vrijemeDolaska` varchar(5) COLLATE cp1250_croatian_ci NOT NULL,
+  `vrijemeOdlaska` varchar(5) COLLATE cp1250_croatian_ci NOT NULL,
+  `datumRada` varchar(10) COLLATE cp1250_croatian_ci NOT NULL,
+  `opisRada` varchar(140) COLLATE cp1250_croatian_ci NOT NULL,
+  `ukupnoSatiRadnogDana` varchar(10) COLLATE cp1250_croatian_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=cp1250 COLLATE=cp1250_croatian_ci;
+
+--
+-- Dumping data for table `evidencija`
+--
+
+INSERT INTO `evidencija` (`br`, `vrijemeDolaska`, `vrijemeOdlaska`, `datumRada`, `opisRada`, `ukupnoSatiRadnogDana`) VALUES
+('1', '07:00', '15:00', '2021-05-26', 'Opis posla', '8');
 
 -- --------------------------------------------------------
 
