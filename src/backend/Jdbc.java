@@ -677,15 +677,16 @@ public class Jdbc {
 		return success;
 	}
 
-	public int updateUkupnoSatiUsera(String sati) {
+	public int updateUkupnoSatiUsera(String sati, String user) {
 		int success = 0;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager
 					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
-			PreparedStatement stmt = con.prepareStatement("UPDATE users SET ukupnoStecenihRadnihSati = ?");
+			PreparedStatement stmt = con.prepareStatement("UPDATE users SET ukupnoStecenihRadnihSati = ? WHERE username = ?");
 
 			stmt.setString(1, sati);
+			stmt.setString(2, user);
 
 			int rb = stmt.executeUpdate();
 

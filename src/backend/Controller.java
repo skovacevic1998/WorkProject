@@ -849,7 +849,7 @@ public class Controller {
 				String ukupnoSati = String.valueOf(diffHours)+":"+ String.valueOf(diffMinutes);
 				String ukupnoSatiUsera = String.valueOf(userHours + diffHours);
 
-				db.updateUkupnoSatiUsera(ukupnoSatiUsera);
+				db.updateUkupnoSatiUsera(ukupnoSatiUsera, UserSession.username);
 				db.addEvidencija(LocalDate.now().toString(), vrijemeDolaska, vrijemeOdlaska, opisPosla, ukupnoSati, UserSession.username);
 
 				success_lbl.setVisible(true);
