@@ -597,7 +597,7 @@ public class Jdbc {
 
 			while (rs.next()){
 				oblist.add(new Evidencija(rs.getInt("br"), rs.getString("vrijemeDolaska"),
-						rs.getString("vrijemeOdlaska"),rs.getString("datumRada"),rs.getString("opisRada"),
+						rs.getString("vrijemeOdlaska"),rs.getString("datumRada"),rs.getString("opisPosla"),
 						rs.getString("ukupnoSatiRadnogDana")));
 			}
 		}catch (Exception e){
@@ -610,7 +610,7 @@ public class Jdbc {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager
 					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
-			PreparedStatement stmt = con.prepareStatement("SELECT * FROM evidencija WHERE datumRada=?");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM evidencija WHERE datumPosla=?");
 
 			stmt.setString(1, source);
 
@@ -618,11 +618,86 @@ public class Jdbc {
 
 			while (rs.next()){
 				oblist.add(new Evidencija(rs.getInt("br"), rs.getString("vrijemeDolaska"),
-						rs.getString("vrijemeOdlaska"),rs.getString("datumRada"),rs.getString("opisRada"),
+						rs.getString("vrijemeOdlaska"),rs.getString("datumRada"),rs.getString("opisPosla"),
 						rs.getString("ukupnoSatiRadnogDana")));
 			}
 		}catch (Exception e){
 			System.out.println(e);
 		}
 	}
+
+	public String checkDate(){
+		String source = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM evidencija WHERE datumRada");
+
+			rs = stmt.executeQuery();
+
+			while (rs.next()){
+				source = rs.getString(4);
+			}
+
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return source;
+	}
+
+	public int addEvidencija(String datum, String vrijemeOd, String vrijemeDo, String opisPosla, String ukupnoSati, String user) {
+		int success = 0;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("INSERT INTO evidencija (datumRada, vrijemeDolaska, vrijemeOdlaska, opisPosla, ukupnoSatiRadnogDana, user) " +
+					"VALUES (?, ?, ?, ?, ?, ?)");
+
+			stmt.setString(1, datum);
+			stmt.setString(2, vrijemeOd);
+			stmt.setString(3, vrijemeDo);
+			stmt.setString(4, opisPosla);
+			stmt.setString(5, ukupnoSati);
+			stmt.setString(6, user);
+
+			int rb = stmt.executeUpdate();
+
+			if(rb == 1){
+				success = rb;
+			}
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return success;
+	}
+
+	public int updateUkupnoSatiUsera(String sati) {
+		int success = 0;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/javaregistredusers?serverTimezone=UTC", "root", "");
+			PreparedStatement stmt = con.prepareStatement("UPDATE users SET ukupnoStecenihRadnihSati = ?");
+
+			stmt.setString(1, sati);
+
+			int rb = stmt.executeUpdate();
+
+			if(rb == 1){
+				success = rb;
+			}
+
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return success;
+	}
+
 }

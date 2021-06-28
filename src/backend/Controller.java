@@ -4,6 +4,9 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +20,12 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
@@ -31,7 +38,8 @@ public class Controller {
 	public static String windowName = "WorkProject";
 	UserSession session = new UserSession();
 	Jdbc db = new Jdbc();
-	Evidencija evidencija = new Evidencija();
+	long diffHours = 0;
+	long diffMinutes = 0;
 
 	@FXML
 	public Label timeLabel = new Label();
@@ -171,6 +179,19 @@ public class Controller {
 	public TableColumn<Evidencija, Integer> col_brSati = new TableColumn<>();
 	@FXML
 	public DatePicker datePickerForSearch;
+	@FXML
+	public TextArea tableInfo_textArea;
+	@FXML
+	public TextField addOpisPosla_textField;
+	@FXML
+	public TextField vrijemeOdlaska_textField;
+	@FXML
+	public TextField vrijemeDolaska_textField;
+	@FXML
+	public Label existsError_lbl;
+	@FXML
+	public Label success_lbl;
+
 
 
 
@@ -297,9 +318,11 @@ public class Controller {
 
 		if(enterUsername.getText().isEmpty()){
 			emptyUsernameLabel.setVisible(true);
+			enterUsername.setStyle("-fx-border-color: red;");
 			TimerTask task = new TimerTask() {
 				public void run() {
 					emptyUsernameLabel.setVisible(false);
+					enterUsername.setStyle("-fx-border-color: none;");
 				}
 			};
 			Timer timer = new Timer("Timer");
@@ -308,10 +331,12 @@ public class Controller {
 			timer.schedule(task, delay);
 
 		}else if(enterUsername.getLength() < 4){
+			enterUsername.setStyle("-fx-border-color: red;");
 			usernameErrorMinimumCharactersLabel.setVisible(true);
 			TimerTask task = new TimerTask() {
 				public void run() {
 					usernameErrorMinimumCharactersLabel.setVisible(false);
+					enterUsername.setStyle("-fx-border-color: none;");
 				}
 			};
 			Timer timer = new Timer("Timer");
@@ -321,9 +346,11 @@ public class Controller {
 
 		}else if(usernameExistence >= 1){
 			usernameErrorLabel.setVisible(true);
+			enterUsername.setStyle("-fx-border-color: red;");
 			TimerTask task = new TimerTask() {
 				public void run() {
 					usernameErrorLabel.setVisible(false);
+					enterUsername.setStyle("-fx-border-color: none;");
 				}
 			};
 			Timer timer = new Timer("Timer");
@@ -333,9 +360,13 @@ public class Controller {
 
 		}else if(enterPassword.getText().isEmpty() && reEnterPassword.getText().isEmpty()) {
 			emptyPasswordLabel.setVisible(true);
+			enterPassword.setStyle("-fx-border-color: red;");
+			reEnterPassword.setStyle("-fx-border-color: red;");
 			TimerTask task = new TimerTask() {
 				public void run() {
 					emptyPasswordLabel.setVisible(false);
+					enterPassword.setStyle("-fx-border-color: none;");
+					reEnterPassword.setStyle("-fx-border-color: none;");
 				}
 			};
 			Timer timer = new Timer("Timer");
@@ -345,9 +376,13 @@ public class Controller {
 
 		}else if(!(enterPassword.getText().equals(reEnterPassword.getText()))){
 			passwordErrorLabel.setVisible(true);
+			enterPassword.setStyle("-fx-border-color: red;");
+			reEnterPassword.setStyle("-fx-border-color: red;");
 			TimerTask task = new TimerTask() {
 				public void run() {
 					passwordErrorLabel.setVisible(false);
+					enterPassword.setStyle("-fx-border-color: none;");
+					reEnterPassword.setStyle("-fx-border-color: none;");
 				}
 			};
 			Timer timer = new Timer("Timer");
@@ -357,9 +392,13 @@ public class Controller {
 
 		}else if(enterPassword.getLength() < 8 && reEnterPassword.getLength() < 8){
 			passwordErrorMinimumCharactersLabel.setVisible(true);
+			enterPassword.setStyle("-fx-border-color: red;");
+			reEnterPassword.setStyle("-fx-border-color: red;");
 			TimerTask task = new TimerTask() {
 				public void run() {
 					passwordErrorMinimumCharactersLabel.setVisible(false);
+					enterPassword.setStyle("-fx-border-color: none;");
+					reEnterPassword.setStyle("-fx-border-color: none;");
 				}
 			};
 			Timer timer = new Timer("Timer");
@@ -369,9 +408,11 @@ public class Controller {
 
 		}else if(enterEmail.getText().isEmpty()) {
 			emptyEmailLabel.setVisible(true);
+			enterEmail.setStyle("-fx-border-color: red;");
 			TimerTask task = new TimerTask() {
 				public void run() {
 					emptyEmailLabel.setVisible(false);
+					enterEmail.setStyle("-fx-border-color: none;");
 				}
 			};
 			Timer timer = new Timer("Timer");
@@ -381,9 +422,11 @@ public class Controller {
 
 		}else if(matcher.matches() == false){
 			requiredEmailCharacterLabel.setVisible(true);
+			enterEmail.setStyle("-fx-border-color: red;");
 			TimerTask task = new TimerTask() {
 				public void run() {
 					requiredEmailCharacterLabel.setVisible(false);
+					enterEmail.setStyle("-fx-border-color: none;");
 				}
 			};
 			Timer timer = new Timer("Timer");
@@ -393,9 +436,11 @@ public class Controller {
 
 		}else if(emailExistence >= 1){
 			emailErrorLabel.setVisible(true);
+			enterEmail.setStyle("-fx-border-color: red;");
 			TimerTask task = new TimerTask() {
 				public void run() {
 					emailErrorLabel.setVisible(false);
+					enterEmail.setStyle("-fx-border-color: none;");
 				}
 			};
 			Timer timer = new Timer("Timer");
@@ -456,9 +501,13 @@ public class Controller {
 			primaryStage.show();
 		} else {
 			errorLoginLabel.setVisible(true);
+			usernameField.setStyle("-fx-border-color: red;");
+			passwordField.setStyle("-fx-border-color: red;");
 			TimerTask task = new TimerTask() {
 				public void run() {
 					errorLoginLabel.setVisible(false);
+					usernameField.setStyle("-fx-border-color: none;");
+					passwordField.setStyle("-fx-border-color: none;");
 				}
 			};
 			Timer timer = new Timer("Timer");
@@ -587,10 +636,12 @@ public class Controller {
 			Matcher matcher = pattern.matcher(content);
 
 			if(content.isEmpty()) {
+				editEmail_txtField.setStyle("-fx-border-color: red;");
 				emailEmptyError_lbl.setVisible(true);
 				TimerTask task = new TimerTask() {
 					public void run() {
 						emailEmptyError_lbl.setVisible(false);
+						editEmail_txtField.setStyle("-fx-border-color: none;");
 					}
 				};
 				Timer timer = new Timer("Timer");
@@ -600,9 +651,11 @@ public class Controller {
 
 			}else if(matcher.matches() == false){
 				emailFormatError_lbl.setVisible(true);
+				editEmail_txtField.setStyle("-fx-border-color: red;");
 				TimerTask task = new TimerTask() {
 					public void run() {
 						emailFormatError_lbl.setVisible(false);
+						editEmail_txtField.setStyle("-fx-border-color: none;");
 					}
 				};
 				Timer timer = new Timer("Timer");
@@ -612,9 +665,11 @@ public class Controller {
 
 			}else if(emailExistence >= 1){
 				emailExistsError_lbl.setVisible(true);
+				editEmail_txtField.setStyle("-fx-border-color: red;");
 				TimerTask task = new TimerTask() {
 					public void run() {
 						emailExistsError_lbl.setVisible(false);
+						editEmail_txtField.setStyle("-fx-border-color: none;");
 					}
 				};
 				Timer timer = new Timer("Timer");
@@ -694,9 +749,10 @@ public class Controller {
 		col_vrOd.setCellValueFactory(new PropertyValueFactory<>("vrijemeDolaska"));
 		col_vrDo.setCellValueFactory(new PropertyValueFactory<>("vrijemeOdlaska"));
 		col_dat.setCellValueFactory(new PropertyValueFactory<>("datumRada"));
-		col_opis.setCellValueFactory(new PropertyValueFactory<>("opisRada"));
+		col_opis.setCellValueFactory(new PropertyValueFactory<>("opisPosla"));
 		col_brSati.setCellValueFactory(new PropertyValueFactory<>("ukupnoSatiRadnogDana"));
 
+		getTableInfo();
 		tableContent.setItems(db.oblist);
 	}
 
@@ -716,8 +772,136 @@ public class Controller {
 			col_opis.setCellValueFactory(new PropertyValueFactory<>("opisRada"));
 			col_brSati.setCellValueFactory(new PropertyValueFactory<>("ukupnoSatiRadnogDana"));
 
+			getTableInfo();
 			tableContent.setItems(db.oblist);
 		}
+	}
+
+	@FXML
+	public void getTableInfo(){
+		tableContent.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+			@Override
+			public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+				if(tableContent.getSelectionModel().getSelectedItem() != null)
+				{
+					TableView.TableViewSelectionModel selectionModel = tableContent.getSelectionModel();
+					ObservableList selectedCells = selectionModel.getSelectedCells();
+					TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+					Object opisPoslaValue = tablePosition.getTableColumn().getCellData(newValue);
+					tableInfo_textArea.setText(opisPoslaValue.toString());
+				}
+			}
+		});
+	}
+
+	@FXML
+	public void addToTableInfo() throws ParseException {
+		String opisPosla = addOpisPosla_textField.getText();
+		String vrijemeDolaska = vrijemeDolaska_textField.getText();
+		String vrijemeOdlaska = vrijemeOdlaska_textField.getText();
+		String timeFormat = "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$";
+		long userHours = Long.valueOf(db.getUserTotalWorkingHours(UserSession.username));
+
+		vrijemeDolaska_textField.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+				if (vrijemeDolaska_textField.getText().length() > 5) {
+					String s = vrijemeDolaska_textField.getText().substring(0, 5);
+					vrijemeDolaska_textField.setText(s);
+				}
+			}
+		});
+
+		vrijemeOdlaska_textField.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+				if (vrijemeOdlaska_textField.getText().length() > 5) {
+					String s = vrijemeOdlaska_textField.getText().substring(0, 5);
+					vrijemeOdlaska_textField.setText(s);
+				}
+			}
+		});
+
+		String nowDate = db.checkDate();
+		if(nowDate.equals(LocalDate.now().toString())){
+			existsError_lbl.setVisible(true);
+			TimerTask task = new TimerTask() {
+				public void run() {
+					existsError_lbl.setVisible(false);
+				}
+			};
+			Timer timer = new Timer("Timer");
+
+			long delay = 3000L;
+			timer.schedule(task, delay);
+
+		}else {
+			if (vrijemeDolaska_textField.getText().matches(timeFormat) &&
+					vrijemeOdlaska_textField.getText().matches(timeFormat)) {
+				SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+				Date date1 = format.parse(vrijemeDolaska);
+				Date date2 = format.parse(vrijemeOdlaska);
+				long difference = date2.getTime() - date1.getTime();
+				long diffSeconds = difference / 1000 % 60;
+				diffMinutes = difference / (60 * 1000) % 60;
+				diffHours = difference / (60 * 60 * 1000) % 24;
+				long diffDays = difference / (24 * 60 * 60 * 1000);
+				String ukupnoSati = String.valueOf(diffHours)+":"+ String.valueOf(diffMinutes);
+				String ukupnoSatiUsera = String.valueOf(userHours + diffHours);
+
+				db.updateUkupnoSatiUsera(ukupnoSatiUsera);
+				db.addEvidencija(LocalDate.now().toString(), vrijemeDolaska, vrijemeOdlaska, opisPosla, ukupnoSati, UserSession.username);
+
+				success_lbl.setVisible(true);
+				TimerTask task = new TimerTask() {
+					public void run() {
+						success_lbl.setVisible(false);
+					}
+				};
+				Timer timer = new Timer("Timer");
+
+				long delay = 3000L;
+				timer.schedule(task, delay);
+			} else if (!vrijemeDolaska_textField.getText().matches(timeFormat) || vrijemeDolaska_textField.getText().isEmpty()) {
+				vrijemeDolaska_textField.setStyle("-fx-border-color: red;");
+				TimerTask task = new TimerTask() {
+					public void run() {
+						vrijemeDolaska_textField.setStyle("-fx-border-color: none;");
+					}
+				};
+				Timer timer = new Timer("Timer");
+
+				long delay = 3000L;
+				timer.schedule(task, delay);
+			}else if (!vrijemeOdlaska_textField.getText().matches(timeFormat) || vrijemeOdlaska_textField.getText().isEmpty()) {
+				vrijemeOdlaska_textField.setStyle("-fx-border-color: red;");
+				TimerTask task = new TimerTask() {
+					public void run() {
+						vrijemeOdlaska_textField.setStyle("-fx-border-color: none;");
+					}
+				};
+				Timer timer = new Timer("Timer");
+
+				long delay = 3000L;
+				timer.schedule(task, delay);
+			}
+		}
+	}
+
+	@FXML
+	public void validateDatePickerSearch(){
+		datePickerForSearch.setDayCellFactory(param -> new DateCell() {
+			private LocalDate now = LocalDate.now();
+			private LocalDate twoMonthsLater = LocalDate.now().plusMonths(2);
+
+			@Override
+			public void updateItem(LocalDate date, boolean empty) {
+				super.updateItem(date, empty);
+				if (date != null && !empty) {
+					setDisable(date.compareTo(now) > 0 || date.compareTo(twoMonthsLater) > 0);
+				}
+			}
+		});
 	}
 
 	@FXML

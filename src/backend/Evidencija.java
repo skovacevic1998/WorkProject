@@ -5,15 +5,15 @@ public class Evidencija {
     String vrijemeDolaska = "";
     String vrijemeOdlaska = "";
     String datumRada = "";
-    String opisRada = "";
+    String opisPosla = "";
     String ukupnoSatiRadnogDana = "";
 
-    public Evidencija(int br, String vrijemeDolaska, String vrijemeOdlaska, String datumRada, String opisRada, String ukupnoSatiRadnogDana) {
+    public Evidencija(int br, String vrijemeDolaska, String vrijemeOdlaska, String datumRada, String opisPosla, String ukupnoSatiRadnogDana) {
         this.br = br;
         this.vrijemeDolaska = vrijemeDolaska;
         this.vrijemeOdlaska = vrijemeOdlaska;
         this.datumRada = datumRada;
-        this.opisRada = opisRada;
+        this.opisPosla = opisPosla;
         this.ukupnoSatiRadnogDana = ukupnoSatiRadnogDana;
     }
 
@@ -53,12 +53,12 @@ public class Evidencija {
         this.datumRada = datumRada;
     }
 
-    public String getOpisRada() {
-        return opisRada;
+    public String getOpisPosla() {
+        return opisPosla;
     }
 
-    public void setOpisRada(String opisRada) {
-        this.opisRada = opisRada;
+    public void setOpisPosla(String opisPosla) {
+        this.opisPosla = opisPosla;
     }
 
     public String getUkupnoSatiRadnogDana() {
